@@ -10,6 +10,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" href="./css/lightbox.min.css" />
     <link rel="stylesheet" href="./css/utilities.css" />
     <link rel="stylesheet" href="./css/styles.css" />
     <title>KodeLedger</title>
@@ -17,7 +18,7 @@
   <body id="home">
     <!-- navbar and hero -->
     <header class="hero">
-      <div id="navbar" class="navbar">
+      <div id="navbar" class="navbar top">
         <h1 class="logo">
           <span class="text-primary"><i class="fas fa-book-open"></i> Kode</span
           >Ledger
@@ -111,8 +112,20 @@
         </header>
         <div class="row">
           <div class="column">
-            <img src="./images/cases/cases1.jpg" alt="cases1" />
-            <img src="./images/cases/cases2.jpg" alt="cases2" />
+            <a
+              href="./images/cases/cases1.jpg"
+              data-lightbox="cases"
+              data-title="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut, natus!"
+            >
+              <img src="./images/cases/cases1.jpg" alt="cases1"
+            /></a>
+            <a
+              href="./images/cases/cases2.jpg"
+              data-lightbox="cases"
+              data-title="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut, natus!"
+            >
+              <img src="./images/cases/cases2.jpg" alt="cases2"
+            /></a>
           </div>
           <div class="column">
             <img src="./images/cases/cases3.jpg" alt="cases3" />
@@ -242,5 +255,52 @@
       </div>
       <p>Copyright &copy; 2024 | KodeLedger WD103P</p>
     </footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-qFOQ9YFAeGj1gDOuUD61g3D+tLDv3u1ECYWqT82WQoaWrOhAY+5mRMTTVsQdWutbA5FORCnkEPEgU0OF8IzGvA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script src="./js/lightbox.min.js"></script>
+
+    <script>
+      const navbar = document.getElementById("navbar");
+      let scrolled = false;
+
+      window.onscroll = function () {
+        if (window.pageYOffset > 100) {
+          navbar.classList.remove("top");
+          if (!scrolled) {
+            navbar.style.transform = "translateY(-70px)";
+          }
+
+          setTimeout(function () {
+            navbar.style.transform = "translateY(0)";
+            scrolled = true;
+          }, 200);
+        } else {
+          navbar.classList.add("top");
+          scrolled = false;
+        }
+      };
+
+      // Smooth Scrolling
+      $("#navbar a, .btn").on("click", function (e) {
+        if (this.hash !== "") {
+          e.preventDefault();
+
+          const hash = this.hash;
+
+          $("html, body").animate(
+            {
+              scrollTop: $(hash).offset().top - 100,
+            },
+            800
+          );
+        }
+      });
+    </script>
   </body>
 </html>
